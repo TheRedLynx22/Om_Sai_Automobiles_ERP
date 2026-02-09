@@ -1,0 +1,206 @@
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+background-color: #f4f4f4;
+}
+.header-banner {
+text-align: center;
+padding: 15px;
+background: #e0e0e0;
+border-bottom: 2px solid #b30000;
+position: relative;
+min-height: 60px;
+}
+.header-logo {
+height: 50px;
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+}
+.header-title {
+display: inline;
+color: #b30000;
+margin: 0;
+line-height: 50px;
+}
+.logo-left { left: 15px; }
+.logo-right { right: 15px; }
+.user-info {
+text-align: right;
+padding: 10px 30px;
+font-size: 0.95em;
+}
+
+.user-info a {
+color: #000000;
+text-decoration: none;
+font-weight: bold;
+transition: color 0.2s;
+}
+.user-info a:hover {
+color: #616161;
+}
+.content-container {
+margin: 30px;
+max-width: 1200px;
+margin-left: auto;
+margin-right: auto;
+}
+h1 {
+color: #b30000;
+margin-top: 0;
+}
+h2 {
+color: #555;
+border-bottom: 1px solid #eee;
+padding-bottom: 5px;
+margin-top: 20px;
+}
+.customer-box {
+border: 1px solid #ccc;
+padding: 15px;
+margin: 15px 0;
+border-radius: 8px;
+background: #fafafa;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+.customer-box h4 {
+margin-top: 15px;
+margin-bottom: 5px;
+color: #555;
+}
+.customer-box ul {
+list-style: none;
+padding: 0;
+font-size: 14px;
+}
+.customer-box li {
+margin-bottom: 8px;
+padding: 5px;
+border-bottom: 1px dotted #ccc;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.customer-box p {
+margin-top: 15px;
+font-style: italic;
+color: #888;
+}
+a.button, button {
+background: #b30000;
+color: white;
+padding: 6px 12px;
+text-decoration: none;
+border-radius: 5px;
+margin-right: 10px;
+display: inline-block;
+border: none;
+cursor: pointer;
+transition: background 0.3s;
+}
+a.button:hover, button:hover {
+background: #800000;
+}
+button[type="submit"] {
+padding: 10px 15px;
+font-size: 16px;
+}
+button.add-customer-btn {
+background: #008000;
+}
+button.add-customer-btn:hover {
+background: #006400;
+}
+a.button.view-pdf {
+background: #3385ff !important;
+padding: 3px 8px !important;
+margin-left: 10px;
+font-size: 13px;
+margin-right: 0;
+}
+a.button.view-pdf:hover {
+background: #1a6ac9 !important;
+}
+form input, form select {
+padding: 8px 10px;
+margin: 5px 5px 5px 0;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+min-width: 200px;
+}
+.flash-message {
+padding: 10px;
+margin-bottom: 15px;
+border-radius: 4px;
+color: white;
+text-align: center;
+font-weight: bold;
+}
+.flash-success {
+background-color: #4CAF50;
+}
+.flash-error, .login-message {
+background-color: #f44336;
+}
+.login-container {
+max-width: 400px;
+margin: 100px auto;
+padding: 30px;
+background: white;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.login-container h1 {
+text-align: center;
+}
+.login-container form input,
+.login-container form button {
+width: 100%;
+margin: 8px 0;
+}
+.login-container form input {
+padding: 10px;
+}
+.login-container form button {
+padding: 14px 20px;
+}
+.login-container label {
+display: block;
+margin-top: 10px;
+font-weight: bold;
+}
+.quotation-page-container {
+max-width: 600px;
+margin: 30px auto;
+padding: 30px;
+background: white;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.quotation-page-container h1 {
+text-align: center;
+}
+#quotationForm label {
+display: block;
+margin-top: 10px;
+font-weight: bold;
+color: #333;
+}
+#quotationForm select,
+#quotationForm input[type="text"],
+#quotationForm input[type="date"] {
+width: 100%;
+padding: 10px;
+margin: 8px 0 15px 0;
+}
+#quotationForm button {
+width: 100%;
+padding: 14px 20px;
+margin: 8px 0;
+background: #b30000;
+}
+#quotationForm button:hover {
+background: #800000;
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Quotation</title>
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Main Header Banner (Logos and Title) -->
+    <div class="header-banner">
+        <img src="{{ url_for('static', filename='logo_left.jpg') }}" alt="Mahindra Logo" class="header-logo logo-left">
+        
+        <h1 class="header-title">Om Sai Automobiles</h1>
+        
+        <img src="{{ url_for('static', filename='logo_right.png') }}" alt="Tractor Image" class="header-logo logo-right">
+    </div>
+
+    <!-- User Info Bar -->
+    <div class="user-info">
+        Welcome, <strong>{{ current_user.name }}</strong> ({{ current_user.role.name }}) | 
+        <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+    </div>
+
+<div class="quotation-page-container">
+    <h1>Create Quotation for {{ customer.name }}</h1>
+    
+    <a href="{{ url_for('index') }}" style="color: #007bff; text-decoration: none; display: block; margin-bottom: 20px; font-weight: bold;">&larr; Back to Customer List</a>
+
+
+    <form method="POST" id="quotationForm">
+        
+        <h2>Product Details</h2>
+        <label for="modelSelect">Select Model:</label>
+        <select name="model_id" id="modelSelect" required>
+            <option value="">-- Select Tractor Model --</option>
+            {% for m in models %}
+            <option value="{{ m.id }}" data-price="{{ m.fixed_price }}">{{ m.name }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="priceDisplay">Model Price:</label>
+        <!-- The read-only display field -->
+        <input type="text" id="priceDisplay" placeholder="Price (₹) - Read Only" readonly required>
+        
+        <!-- Hidden input to submit the actual price value -->
+        <input type="hidden" name="price" id="priceInput" required>
+        
+        <label for="date">Quotation Date:</label>
+        <input type="date" name="date" id="date" required>
+        <button type="submit">Save Quotation</button>
+    </form>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modelSelect = document.getElementById('modelSelect');
+        var priceInput = document.getElementById('priceInput');
+        var priceDisplay = document.getElementById('priceDisplay');
+        
+        // Function to format price as Indian currency
+        function formatIndianCurrency(amount) {
+            if (amount === null || amount === undefined || amount === "") {
+                return "";
+            }
+            // Format number with commas and two decimal places (simple formatting)
+            var parts = parseFloat(amount).toFixed(2).split('.');
+            var integerPart = parts[0];
+            
+            // Standard Western grouping (thousands)
+            var formatted = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            
+            return '₹ ' + formatted + '.' + parts[1];
+        }
+
+        modelSelect.addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var price = selectedOption.getAttribute('data-price');
+            
+            if (price) {
+                // Set the value for form submission
+                priceInput.value = price;
+                // Format and display the price
+                priceDisplay.value = formatIndianCurrency(price);
+            } else {
+                // Clear fields if no model is selected
+                priceInput.value = '';
+                priceDisplay.value = '';
+            }
+        });
+        
+        // Set today's date as default
+        // Ensure date input is initialized with today's date
+        const dateInput = document.getElementById('date');
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        // Month is 0-indexed, so add 1 and pad with 0
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        dateInput.value = `${yyyy}-${mm}-${dd}`;
+    });
+</script>
+
+</body>
+</html>

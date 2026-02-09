@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer List</title>
+    <!-- MANDATORY for responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <!-- Link to external CSS file for consistent styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Header Banner with Logos -->
+<div class="header-banner">
+    <img src="{{ url_for('static', filename='logo_left.jpg') }}" alt="Left Logo" class="header-logo logo-left">
+    <h1 class="header-title">Om Sai Automobiles</h1>
+    <img src="{{ url_for('static', filename='logo_right.png') }}" alt="Right Logo" class="header-logo logo-right">
+</div>
+
+<!-- User Info Bar (Responsive and Non-Red) -->
+<div class="user-info">
+    Welcome, <strong>{{ current_user.name }}</strong> ({{ current_user.role.name }})
+    <a href="{{ url_for('logout') }}" class="user-logout-link">Logout</a>
+</div>
+
+<div class="content-container">
+
+    <h1>Customer Management</h1>
+
+    <form action="{{ url_for('add_customer') }}" method="POST">
+        <input type="text" name="name" placeholder="Customer Name" required>
+        <input type="text" name="phone" placeholder="Phone" required>
+        <input type="email" name="email" placeholder="Email">
+        <button type="submit" class="add-customer-btn">Add New Customer</button>
+    </form>
+
+    <h2>Customer Records</h2>
+
+    {% for c in customers %}
+    <div class="customer-box">
+        <strong>{{ c.name }}</strong> ({{ c.phone }}) 
+        {% if c.email %}&lt;{{ c.email }}&gt;{% endif %}
+        <br><br>
+        
+        <a class="button" href="{{ url_for('create_quotation', customer_id=c.id) }}">Create New Quotation</a>
+        
+        {% if c.quotations %}
+            <h4>Quotation History:</h4>
+            <ul>
+            {% for q in c.quotations %}
+                <li>
+                    <span>
+                        <!-- Explicitly using <strong> for Model, Price, and Date labels -->
+                        <strong>Model:</strong> {{ q.model }} | 
+                        <strong>Price:</strong> ₹ {{ "{:,.2f}".format(q.price) }} | 
+                        <strong>Date:</strong> {{ q.date.strftime('%d-%m-%Y') }}
+                    </span>
+                    {% if q.pdf_path %}
+                        {% set filename = q.pdf_path.split('/')[-1] %}
+                        <a href="{{ url_for('view_pdf', filename=filename) }}" target="_blank" class="button view-pdf">View PDF</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No quotations yet.</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
